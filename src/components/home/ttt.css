@@ -1,0 +1,81 @@
+.tictactoe-container * {
+  box-sizing: border-box;
+}
+
+.tictactoe-container body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.tictactoe-container h1 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.tictactoe-container h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.tictactoe-container h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.tictactoe-container h4 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.tictactoe-container h5 {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.tictactoe-container h6 {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+.tictactoe-container code {
+  font-size: 1.2em;
+}
+
+.tictactoe-container ul {
+  padding-inline-start: 20px;
+}
+
+.tictactoe-container .square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.tictactoe-container .board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.tictactoe-container .status {
+  margin-bottom: 10px;
+}
+
+.tictactoe-container .game {
+  display: flex;
+  flex-direction: row;
+}
+
+.tictactoe-container .game-info {
+  margin-left: 20px;
+}

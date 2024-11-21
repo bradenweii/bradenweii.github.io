@@ -16,6 +16,7 @@ const Navigation = React.forwardRef((props, ref) => {
   useScrollPosition(
     ({ prevPos, currPos }) => {
       if (!navbarDimensions) return;
+      if(!ref?.current) return;
       currPos.y + ref.current.offsetTop - navbarDimensions.bottom > 5
         ? setIsTop(true)
         : setIsTop(false);
@@ -26,6 +27,8 @@ const Navigation = React.forwardRef((props, ref) => {
 
   React.useEffect(() => {
     if (!navbarDimensions) return;
+    if(!ref?.current) return;
+
     navBottom - scrollPosition >= ref.current.offsetTop
       ? setIsTop(false)
       : setIsTop(true);
@@ -79,6 +82,14 @@ const Navigation = React.forwardRef((props, ref) => {
               href={process.env.PUBLIC_URL + "/#skills"}
             >
               Skills
+            </NavLink>
+          )}
+          {(
+            <NavLink
+            className = "nav-item lead"
+              href ={process.env.PUBLIC_URL + "/tictactoe"}
+              >
+              TicTacToe
             </NavLink>
           )}
         </Nav>
