@@ -40,6 +40,7 @@ const Board = () =>{
 
 
     return (
+      <section id="tictactoe">
         <Jumbotron>
         <div className="tictactoe-container">
         <div><h1>Welcome to TicTacToe</h1></div>
@@ -61,6 +62,7 @@ const Board = () =>{
           </div>
           </div>
           </Jumbotron>
+          </section>
       );
 }
 
