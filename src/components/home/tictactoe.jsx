@@ -29,6 +29,10 @@ const Board = () =>{
         setSquares(nextSquares);
         setXIsNext(!xIsNext);
     }
+    function restartGame() {
+      setSquares(Array(9).fill(null));
+      setXIsNext(true);
+    }
 
     const winner = calculateWinner(squares);
     const isBoardFull = squares.every((square) => square !== null);
@@ -49,7 +53,7 @@ const Board = () =>{
         <div className="tictactoe-container">
         <div><h1>Welcome to TicTacToe</h1></div>
         <div><h2>{status}</h2></div>
-
+        
         <div className="board-position" >
           <div className="board-row">
           <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
@@ -67,6 +71,7 @@ const Board = () =>{
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
           </div>
           </div>
+          <div className="pad"><button className="button" onClick={restartGame}>Restart</button></div>
           </div>
           </Jumbotron>
           </section>

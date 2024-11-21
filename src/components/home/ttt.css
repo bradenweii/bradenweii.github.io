@@ -19,7 +19,7 @@
 
 .tictactoe-container h2 {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 25px;
   margin-top: 0;
   font-size: 20px;
 }
@@ -52,20 +52,6 @@
   padding-inline-start: 20px;
 }
 
-/* .tictactoe-container .square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 32px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 38px;
-  text-align: center;
-  width: 34px;
-} */
 
 .square {
   width: 50px;
@@ -84,6 +70,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;    /* Ensure rows align in the center */
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .board-row {
@@ -112,4 +100,25 @@
 }
 .tictactoe-container .board-position {
   text-align: center;
+}
+ .tictactoe-container .button{
+  margin-top: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+  
+ }
+
+ .tictactoe-container .button:hover {
+  background-color: #0056b3;
+}
+.tictactoe-container .pad {
+  margin-top: 20px;
 }
