@@ -31,10 +31,14 @@ const Board = () =>{
     }
 
     const winner = calculateWinner(squares);
+    const isBoardFull = squares.every((square) => square !== null);
     let status;
     if(winner){
         status = "Winner: "+winner;
-    }else{
+    }else if(isBoardFull){
+      status = "It's a TIE!";
+    }
+    else{
         status = "Next player: " + (xIsNext ? "X" : "O");
     }
 
@@ -44,7 +48,9 @@ const Board = () =>{
         <Jumbotron>
         <div className="tictactoe-container">
         <div><h1>Welcome to TicTacToe</h1></div>
-        <div>{status}</div>
+        <div><h2>{status}</h2></div>
+
+        <div className="board-position" >
           <div className="board-row">
           <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -59,6 +65,7 @@ const Board = () =>{
           <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+          </div>
           </div>
           </div>
           </Jumbotron>
