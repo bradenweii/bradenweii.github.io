@@ -1,0 +1,124 @@
+.tictactoe-container * {
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+
+.tictactoe-container body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.tictactoe-container h1 {
+  text-align: center;
+  padding-top: -50px;
+  margin-top: 0;
+  font-size: 40px;
+}
+
+.tictactoe-container h2 {
+  text-align: center;
+  padding-top: 25px;
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.tictactoe-container h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.tictactoe-container h4 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.tictactoe-container h5 {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.tictactoe-container h6 {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+.tictactoe-container code {
+  font-size: 1.2em;
+}
+
+.tictactoe-container ul {
+  padding-inline-start: 20px;
+}
+
+
+.square {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center; /* Center the content inside the square */
+  align-items: center;    /* Center the content inside the square */
+  margin: -1px;            /* Spacing between squares */
+  background-color: white;
+  border: 1px solid #999;
+  cursor: pointer;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Ensure rows align in the center */
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.board-row {
+  display: flex;          /* Ensure squares in the row are aligned horizontally */
+}
+
+/* .tictactoe-container .board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+  display: flex;
+  
+} */
+
+.tictactoe-container .status {
+  margin-bottom: 10px;
+}
+
+.tictactoe-container .game {
+  display: flex;
+  flex-direction: row;
+}
+
+.tictactoe-container .game-info {
+  margin-left: 20px;
+}
+.tictactoe-container .board-position {
+  text-align: center;
+}
+ .tictactoe-container .button{
+  margin-top: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+  
+ }
+
+ .tictactoe-container .button:hover {
+  background-color: #0056b3;
+}
+.tictactoe-container .pad {
+  margin-top: 20px;
+}
