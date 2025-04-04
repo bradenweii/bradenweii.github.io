@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { mainBody } from "./editable-stuff/config.js";
 import "./App.css";
 import resume from './editable-stuff/resume.pdf';
 
 const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const projects = [
     {
       title: "Instagram Business Order Automation",
@@ -31,13 +33,28 @@ const App = () => {
     <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
       <div className="site-container">
         <header>
-          <h1 className="site-title">{mainBody.firstName}</h1>
-          <nav>
-            <a href="#about">About Me</a>
-            <a href="#projects">Projects</a>
-            <a href="#blog">Blog</a>
-            <a href={resume} target="_blank" rel="noopener noreferrer">Resume</a>
-          </nav>
+          <div className="header-content">
+            <h1 className="site-title">Braden Wei</h1>
+            
+            <div className="nav-container">
+              <button 
+                className="hamburger-menu"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle navigation menu"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+              
+              <nav className={`navigation ${isMenuOpen ? 'active' : ''}`}>
+                <a href="#about" onClick={() => setIsMenuOpen(false)}>About Me</a>
+                <a href="#projects" onClick={() => setIsMenuOpen(false)}>Projects</a>
+                <a href="#blog" onClick={() => setIsMenuOpen(false)}>Blog</a>
+                <a href={resume} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Resume</a>
+              </nav>
+            </div>
+          </div>
         </header>
         
         <main>
@@ -55,7 +72,8 @@ I've worked with a range of technologies, from building full-stack web apps with
 
 Outside of school, I enjoy working on hackathon projects, exploring new technologies, and reading about startups, finance, and new innovations.
 
-I believe in using software to solve real-world problems in simple, accessible ways. Recently I've built this workflow automation tools for small businesses on Instagram to automatically take orders though DMs.
+I believe in using software to solve real-world problems in simple, accessible ways. Recently I've built this workflow automation tools for small businesses on Instagram to automatically take orders though DMs. Check it out here: <a href="https://ig-business-order-automation.vercel.app" target="_blank" rel="noopener noreferrer">https://ig-business-order-automation.vercel.app</a>
+
 
 
               </p>
@@ -99,7 +117,7 @@ I believe in using software to solve real-world problems in simple, accessible w
 
         <footer>
           <div className="footer-content">
-            <p>© 2024 {mainBody.firstName}. Built with React.</p>
+            <p>© 2024 Braden Wei. Built with React.</p>
             <div className="footer-links">
               <a href="https://github.com/bradenweii" target="_blank" rel="noopener noreferrer">GitHub</a>
               <a href="https://www.linkedin.com/in/bradenwei/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
