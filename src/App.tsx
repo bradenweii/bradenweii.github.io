@@ -543,7 +543,7 @@ function App() {
         {/* Click Wheel */}
         <div 
           ref={wheelRef}
-          className="w-[200px] h-[200px] rounded-full bg-gray-300 relative pixel-border mt-2 touch-none select-none"
+          className="w-[200px] h-[200px] rounded-full bg-gray-300/60 relative pixel-border mt-2 touch-none select-none"
           onMouseDown={handleMouseDown}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -556,7 +556,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('center');
             }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-gray-100 shadow-inner active:bg-gray-200 touch-manipulation"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/30 shadow-inner active:bg-gray-300 touch-manipulation"
           />
           
           {/* Menu button */}
@@ -576,7 +576,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('bottom');
             }}
-            className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm font-bold transition-colors duration-200 active:opacity-70 touch-manipulation ${
+            className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm font-chicago font-bold transition-colors duration-200 active:opacity-70 touch-manipulation cursor-default select-none ${
               !isWheelMode ? 'text-[#0c5a79]' : 'text-gray-700'
             }`}
           >
