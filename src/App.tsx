@@ -126,6 +126,11 @@ function App() {
   };
 
   const handleWheelClick = (area: WheelArea) => {
+    // Add haptic feedback
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // 50ms vibration
+    }
+
     switch (area) {
       case 'top':
         handleMenuButton();
@@ -138,9 +143,7 @@ function App() {
         break;
       case 'bottom':
         if (!menuMode) {
-          // Toggle wheel mode
           setIsWheelMode(!isWheelMode);
-          // If switching to direct scroll mode, scroll down
           if (isWheelMode) {
             const contentContainer = document.querySelector('.content-container');
             if (contentContainer) {
@@ -553,7 +556,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('center');
             }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white shadow-inner"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-gray-100 shadow-inner active:bg-gray-200 touch-manipulation"
           />
           
           {/* Menu button */}
@@ -562,7 +565,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('top');
             }}
-            className="absolute top-4 left-1/2 transform -translate-x-1/2 text-sm font-bold menu-button"
+            className="absolute top-4 left-1/2 transform -translate-x-1/2 text-sm font-bold menu-button active:opacity-70 touch-manipulation"
           >
             MENU
           </button>
@@ -573,7 +576,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('bottom');
             }}
-            className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm font-bold transition-colors duration-200 ${
+            className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm font-bold transition-colors duration-200 active:opacity-70 touch-manipulation ${
               !isWheelMode ? 'text-[#0c5a79]' : 'text-gray-700'
             }`}
           >
@@ -586,7 +589,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('right');
             }}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 text-sm"
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 text-sm active:opacity-70 touch-manipulation"
           >
             ⏭
           </button>
@@ -597,7 +600,7 @@ function App() {
               if (recentTouchRef.current || isInTouchDragRef.current) return;
               handleWheelClick('left');
             }}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-sm"
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-sm active:opacity-70 touch-manipulation"
           >
             ⏮
           </button>

@@ -60,10 +60,20 @@
 button {
   transition: opacity 0.2s ease;
   image-rendering: pixelated;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 button:hover {
   opacity: 0.8;
+}
+
+/* Add active state styles */
+button:active {
+  opacity: 0.7;
+  transition: opacity 0.1s ease;
 }
 
 /* Menu item styles */
@@ -74,6 +84,10 @@ button:hover {
   align-items: center;
   padding: 8px 12px;
   border-bottom: 1px solid rgba(12, 90, 121, 0.1);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .menu-item:hover {
@@ -98,6 +112,12 @@ button:hover {
   opacity: 1;
 }
 
+/* Add active state styles */
+.menu-item:active {
+  opacity: 0.7;
+  transition: opacity 0.1s ease;
+}
+
 /* Custom font for the retro look */
 @font-face {
   font-family: 'Chicago';
@@ -117,4 +137,8 @@ button:hover {
     -2px -2px 0 #0c5a79,
     2px -2px 0 #0c5a79,
     -2px 2px 0 #0c5a79;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 } 
