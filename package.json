@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bradenweii.github.io",
+  "homepage": "https://bradenweii.github.io/braden",
   "dependencies": {
     "@types/node": "^16.18.0",
     "@types/react": "^18.0.0",
