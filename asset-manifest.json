@@ -1,17 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.3e376a00.css",
-    "main.js": "/static/js/main.257e8a85.js",
-    "static/js/787.6971d1b3.chunk.js": "/static/js/787.6971d1b3.chunk.js",
-    "static/media/myPic.png": "/static/media/myPic.115f26c5cf0fcf745078.png",
-    "static/media/resume.pdf": "/static/media/resume.16fbd21951812e902f82.pdf",
-    "index.html": "/index.html",
-    "main.3e376a00.css.map": "/static/css/main.3e376a00.css.map",
-    "main.257e8a85.js.map": "/static/js/main.257e8a85.js.map",
-    "787.6971d1b3.chunk.js.map": "/static/js/787.6971d1b3.chunk.js.map"
+    "main.css": "/braden/static/css/main.d06ff4b4.css",
+    "main.js": "/braden/static/js/main.9e44bd9e.js",
+    "index.html": "/braden/index.html",
+    "main.d06ff4b4.css.map": "/braden/static/css/main.d06ff4b4.css.map",
+    "main.9e44bd9e.js.map": "/braden/static/js/main.9e44bd9e.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e376a00.css",
-    "static/js/main.257e8a85.js"
+    "static/css/main.d06ff4b4.css",
+    "static/js/main.9e44bd9e.js"
   ]
 }
