@@ -1,0 +1,120 @@
+/* Custom scrollbar for the content area */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c5e0f5;
+  border-left: 1px solid #0c5a79;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0c5a79;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0a3667;
+}
+
+/* LCD screen effect */
+.lcd-screen {
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.lcd-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 2px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glass reflection effect */
+.lcd-screen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Click wheel button hover effects */
+button {
+  transition: opacity 0.2s ease;
+  image-rendering: pixelated;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Menu item styles */
+.menu-item {
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(12, 90, 121, 0.1);
+}
+
+.menu-item:hover {
+  background-color: rgba(192, 216, 240, 0.5);
+}
+
+.menu-item.selected {
+  background-color: #0c5a79;
+  color: white;
+}
+
+.menu-item .arrow {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.menu-item:hover .arrow {
+  opacity: 1;
+}
+
+.menu-item.selected .arrow {
+  opacity: 1;
+}
+
+/* Custom font for the retro look */
+@font-face {
+  font-family: 'Chicago';
+  src: url('https://fonts.cdnfonts.com/css/chicago') format('woff2');
+}
+
+.font-chicago {
+  font-family: 'Chicago', monospace;
+  letter-spacing: -0.5px;
+}
+
+/* Pixelated border effect */
+.pixel-border {
+  border: 2px solid #0c5a79;
+  box-shadow: 
+    2px 2px 0 #0c5a79,
+    -2px -2px 0 #0c5a79,
+    2px -2px 0 #0c5a79,
+    -2px 2px 0 #0c5a79;
+} 
