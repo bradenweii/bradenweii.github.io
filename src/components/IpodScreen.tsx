@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IpodMenuBar } from './IpodMenuBar';
 
 interface IpodScreenProps {
   menuMode: boolean;
-  menuLevel: 'main' | 'submenu' | 'projects';
+  menuLevel: 'main' | 'submenu' | 'projects' | 'music' | 'music-artists' | 'music-artist-songs' | 'now-playing';
   currentTab: string;
   selectedMenuItem: number;
   getCurrentSelectedItem: () => { label: string; id: string; githubUrl?: string } | null;
@@ -12,6 +12,9 @@ interface IpodScreenProps {
   handleMenuItemSelect: (index: number) => void;
   handleSubMenuItemSelect: (index: number) => void;
   handleProjectSelect: (index: number) => void;
+  handleMusicMenuSelect: (index: number) => void;
+  handleArtistSelect: (index: number) => void;
+  handleArtistSongSelect: (index: number) => void;
 }
 
 export function IpodScreen({
@@ -24,7 +27,32 @@ export function IpodScreen({
   handleMenuItemSelect,
   handleSubMenuItemSelect,
   handleProjectSelect,
+  handleMusicMenuSelect,
+  handleArtistSelect,
+  handleArtistSongSelect,
 }: IpodScreenProps) {
+  const lastClickRef = useRef(0);
+
+  const handleClick = (index: number) => {
+    const now = Date.now();
+    if (now - lastClickRef.current < 200) return; // Prevent rapid clicks
+    lastClickRef.current = now;
+
+    if (menuLevel === 'projects') {
+      handleProjectSelect(index);
+    } else if (menuLevel === 'submenu') {
+      handleSubMenuItemSelect(index);
+    } else if (menuLevel === 'music') {
+      handleMusicMenuSelect(index);
+    } else if (menuLevel === 'music-artists') {
+      handleArtistSelect(index);
+    } else if (menuLevel === 'music-artist-songs') {
+      handleArtistSongSelect(index);
+    } else {
+      handleMenuItemSelect(index);
+    }
+  };
+
   return (
     <div className="w-full h-[240px] bg-[#c5e0f5] rounded-lg border-2 border-gray-400 mb-6 overflow-hidden lcd-screen">
       <div className="h-full flex flex-col">
@@ -58,15 +86,7 @@ export function IpodScreen({
                     className={`menu-item ${
                       index === selectedMenuItem ? 'selected' : ''
                     }`}
-                    onClick={() => {
-                      if (menuLevel === 'projects') {
-                        handleProjectSelect(index);
-                      } else if (menuLevel === 'submenu') {
-                        handleSubMenuItemSelect(index);
-                      } else {
-                        handleMenuItemSelect(index);
-                      }
-                    }}
+                    onClick={() => handleClick(index)}
                   >
                     <span className="font-chicago">{item.label}</span>
                     <span className="arrow">›</span>

@@ -263,14 +263,15 @@ export function IpodWheel({
   };
 
   return (
-    <div className="w-[200px] h-[200px] rounded-full bg-gray-300 relative pixel-border mt-2">
+    <div className="w-[200px] h-[200px] rounded-full bg-gray-300/60
+     relative pixel-border mt-2">
       {/* Center button */}
       <button
         onClick={() => {
           if (recentTouchRef.current || isInTouchDragRef.current) return;
           onWheelClick("center");
         }}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white shadow-inner"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/30 shadow-inner"
       />
       
       {/* Wheel sections */}
@@ -300,7 +301,7 @@ export function IpodWheel({
         <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm ${
           !isWheelMode ? 'text-[#0c5a79]' : ''
         } cursor-default select-none`}>
-          {isWheelMode ? '⏯' : '⇅'}
+          {isWheelMode ? '⏯' : '⏯'}
         </div>
         <div className="absolute top-1/2 left-4 transform -translate-y-1/2 text-sm cursor-default select-none">
           ⏮

@@ -2,7 +2,7 @@ import React from 'react';
 
 interface IpodMenuBarProps {
   menuMode: boolean;
-  menuLevel: 'main' | 'submenu' | 'projects';
+  menuLevel: 'main' | 'submenu' | 'projects' | 'music' | 'music-artists' | 'music-artist-songs' | 'now-playing';
   currentSelectedItem?: { label: string } | null;
 }
 
@@ -12,9 +12,15 @@ export function IpodMenuBar({ menuMode, menuLevel, currentSelectedItem }: IpodMe
       <div className="h-8 bg-[#0c5a79] text-white flex items-center justify-center font-bold font-chicago">
         {menuMode 
           ? (menuLevel === 'projects' 
-              ? 'Projects' 
+              ? 'Projects'
               : menuLevel === 'submenu' 
-                ? 'Me' 
+                ? 'Me'
+              : menuLevel === 'music'
+                ? 'Music'
+              : menuLevel === 'music-artists'
+                ? 'Artists'
+              : menuLevel === 'music-artist-songs'
+                ? 'Songs'
                 : 'Menu') 
           : currentSelectedItem?.label || 'Menu'}
       </div>
