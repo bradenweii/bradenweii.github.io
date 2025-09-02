@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   const [showIpod, setShowIpod] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigationItems = [
     { id: 'about', label: 'profile' },
@@ -22,7 +23,68 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="min-h-screen bg-white">
+      {/* Mobile Header */}
+      <div className="md:hidden bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-normal text-black">braden wei</h1>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+        
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="mt-4 pb-4">
+            <nav className="flex flex-col space-y-2">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveSection(item.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`text-left py-2 px-3 rounded-md text-sm transition-colors ${
+                    activeSection === item.id 
+                      ? 'bg-gray-100 text-black font-medium' 
+                      : 'text-gray-400 hover:text-gray-600'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+            
+            {/* Mobile Social Links */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="flex flex-wrap gap-4">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="md:flex">
       {/* iPod Modal */}
       {showIpod && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none">
@@ -38,53 +100,53 @@ function App() {
         </div>
       )}
 
-      {/* Left Sidebar */}
-      <div className="w-64 min-h-screen p-8 flex flex-col">
-        {/* Name */}
-        <div className="mb-12">
-          <h1 className="text-3xl font-normal text-black mb-2">braden wei</h1>
+        {/* Desktop Sidebar */}
+        <div className="hidden md:flex w-64 min-h-screen p-8 flex-col">
+          {/* Name */}
+          <div className="mb-12">
+            <h1 className="text-3xl font-normal text-black mb-2">braden wei</h1>
+          </div>
+
+          {/* Navigation */}
+          <nav className="mb-12">
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={`block w-full text-left py-1 mb-2 text-sm transition-colors ${
+                  activeSection === item.id 
+                    ? 'text-black font-medium' 
+                    : 'text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Social Links */}
+          <div className="mt-auto">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block py-1 mb-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Navigation */}
-        <nav className="mb-12">
-          {navigationItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveSection(item.id)}
-              className={`block w-full text-left py-1 mb-2 text-sm transition-colors ${
-                activeSection === item.id 
-                  ? 'text-black font-medium' 
-                  : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        {/* Social Links */}
-        <div className="mt-auto">
-          {socialLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-1 mb-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 p-8 pl-0">
-        <div className="max-w-2xl">
+        {/* Main Content */}
+        <div className="flex-1 p-6 md:p-8 md:pl-0">
+          <div className="max-w-lg mx-auto md:max-w-2xl md:mx-0">
           
-          {/* About Section */}
-          {activeSection === 'about' && (
-            <div className="pt-20">
+            {/* About Section */}
+            {activeSection === 'about' && (
+              <div className="pt-8 md:pt-20">
               
               <div className="mb-8">
                                 <p className="text-base leading-relaxed text-gray-700 mb-6">
@@ -150,12 +212,12 @@ function App() {
                   I'm continuning to work part time at my current internship through the fall semester, exploring and building more interesting AI features that might be useful for the healthcare industry.
                 </p>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {/* Work Section */}
-          {activeSection === 'work' && (
-            <div className="pt-20">
+            {/* Work Section */}
+            {activeSection === 'work' && (
+              <div className="pt-8 md:pt-20">
               <p className="text-base leading-relaxed text-gray-700 mb-8">
                 A selection of recent work and ongoing projects.
               </p>
@@ -209,12 +271,12 @@ function App() {
                   </a>
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {/* Projects Section */}
-          {activeSection === 'projects' && (
-            <div className="pt-20">
+            {/* Projects Section */}
+            {activeSection === 'projects' && (
+              <div className="pt-8 md:pt-20">
               <p className="text-base leading-relaxed text-gray-700 mb-8">
                 Creative experiments and interactive experiences.
               </p>
@@ -247,12 +309,12 @@ function App() {
                   </span>
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {/* Resume Section */}
-          {activeSection === 'resume' && (
-            <div className="pt-20">
+            {/* Resume Section */}
+            {activeSection === 'resume' && (
+              <div className="pt-8 md:pt-20">
               <p className="text-base leading-relaxed text-gray-700 mb-8">
                 Download or view my resume.
               </p>
@@ -264,7 +326,7 @@ function App() {
                     View my complete resume with education, experience, and skills.
                   </p>
                   
-                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
                     <a 
                       href="/cv__Copy_.pdf"
                       target="_blank"
@@ -286,7 +348,7 @@ function App() {
                 {/* Embedded PDF Viewer */}
                 <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
                   <h3 className="text-lg font-medium text-black mb-4">Preview</h3>
-                  <div className="w-full h-96 border border-gray-200 rounded-md overflow-hidden">
+                  <div className="w-full h-64 md:h-96 border border-gray-200 rounded-md overflow-hidden">
                     <iframe
                       src="/cv__Copy_.pdf"
                       className="w-full h-full"
@@ -295,12 +357,12 @@ function App() {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {/* Contact Section */}
-          {activeSection === 'contact' && (
-            <div className="pt-20">
+            {/* Contact Section */}
+            {activeSection === 'contact' && (
+              <div className="pt-8 md:pt-20">
               <p className="text-base leading-relaxed text-gray-700 mb-8">
                 Let's connect and create something amazing together.
               </p>
@@ -329,9 +391,10 @@ function App() {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
+          </div>
         </div>
       </div>
     </div>
