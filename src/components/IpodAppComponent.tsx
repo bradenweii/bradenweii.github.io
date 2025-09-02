@@ -482,8 +482,7 @@ export function IpodAppComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300 flex items-center justify-center p-4">
-      <div className="w-[300px] h-[500px] bg-gradient-to-br from-[#d8d8d8] via-[#f0f0f0] to-[#c0c0c0] rounded-3xl shadow-[inset_0_2px_6px_rgba(255,255,255,0.6),_0_4px_8px_rgba(0,0,0,0.2)] border border-[#999] flex flex-col items-center p-4">
+    <div className="w-[300px] h-[500px] bg-gradient-to-br from-[#d8d8d8] via-[#f0f0f0] to-[#c0c0c0] rounded-3xl shadow-[inset_0_2px_6px_rgba(255,255,255,0.6),_0_4px_8px_rgba(0,0,0,0.2)] border border-[#999] flex flex-col items-center p-4">
         {/* Single persistent music player - always mounted */}
         <IpodMusicPlayer
           song={currentSong}
@@ -519,7 +518,6 @@ export function IpodAppComponent() {
           onMenuButton={handleMenuButton}
           isWheelMode={isWheelMode}
         />
-      </div>
     </div>
   );
 } 
