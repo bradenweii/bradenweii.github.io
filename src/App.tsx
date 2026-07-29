@@ -6,8 +6,7 @@ const navigationItems = [
   { id: 'about', label: 'profile' },
   { id: 'work', label: 'work' },
   { id: 'projects', label: 'projects' },
-  { id: 'resume', label: 'resume' },
-  { id: 'contact', label: 'contact' }
+  { id: 'resume', label: 'resume' }
 ];
 
 const internships = [
@@ -15,6 +14,18 @@ const internships = [
   { id: 'work-zebra', label: 'zebra technologies' },
   { id: 'work-valsoft', label: 'valsoft corporation' }
 ];
+
+const tagClass = 'text-xs text-gray-500 border border-gray-200 rounded-full px-2.5 py-0.5';
+
+const catEmojis = ['😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🐱', '🐈', '🐈‍⬛'];
+
+const crusoeTags = ['Go', 'Kubernetes', 'Terraform', 'gRPC', 'Helm', 'Prometheus', 'Grafana', 'GCP'];
+const zebraTags = ['C#', 'Selenium', '.NET', 'CI/CD'];
+const valsoftTags = ['Python', 'FastAPI', 'Java', 'RAG', 'Supabase', 'PostgreSQL', 'Redis'];
+
+const instagramTags = ['Python'];
+const roomiezTags = ['React Native', 'Expo', 'Express.js', 'Firebase'];
+const ipodTags = ['React', 'TypeScript'];
 
 const socialLinks = [
   { label: 'email', href: 'mailto:bradenwei00@gmail.com' },
@@ -26,9 +37,26 @@ function App() {
   const [showIpod, setShowIpod] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [visits, setVisits] = useState<number | null>(null);
+  const [emojiIndex, setEmojiIndex] = useState(0);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    fetch('https://abacus.jasoncameron.dev/get/bradenweii-github-io/visits')
+      .then((r) => r.json())
+      .then((d) => setVisits(d.value ?? 0))
+      .catch(() => setVisits(0));
+  }, []);
+
+  const addVisit = () => {
+    setEmojiIndex((i) => (i + 1) % catEmojis.length);
+    fetch('https://abacus.jasoncameron.dev/hit/bradenweii-github-io/visits')
+      .then((r) => r.json())
+      .then((d) => setVisits(d.value))
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -169,12 +197,12 @@ function App() {
 
         {/* Main Content */}
         <div className="flex-1 p-6 md:p-8 md:pl-0">
-          <div className="max-w-lg mx-auto md:max-w-2xl md:mx-0">
+          <div className="max-w-lg mx-auto md:max-w-5xl md:mx-0">
 
             {/* About Section */}
             <section id="about" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0">
 
-              <div className="mb-8">
+              <div className="mb-8 md:max-w-2xl">
                 <p className="text-base leading-relaxed text-gray-700 mb-6">
                   Hi I'm Braden, a CS student at McGill with a passion for solving problems and building startups.
                 </p>
@@ -194,18 +222,39 @@ function App() {
                     </button>
                   ))}
                 </div>
+
+                <div className="mt-12">
+                  <p className="text-base leading-relaxed text-gray-700 mb-4">
+                    Let's connect and create something amazing together.
+                  </p>
+                  <p className="text-base leading-relaxed text-gray-700">
+                    Feel free to reach out via email or connect with me on social platforms.
+                    I'm always interested in discussing new projects, opportunities, or just
+                    having a conversation about technology and design.
+                  </p>
+                </div>
               </div>
             </section>
 
             {/* Work Section */}
             <section id="work" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-12">
+              <p className="text-base leading-relaxed text-gray-700 mb-12 md:max-w-2xl">
                 A deeper dive into my internships.
               </p>
 
-              <div id="work-crusoe" className="mb-16 scroll-mt-8 md:scroll-mt-20">
-                <h3 className="text-lg font-medium text-black mb-1">Crusoe</h3>
-                <p className="text-sm text-gray-400 mb-4">Software Engineering Intern · San Francisco · Summer 2026</p>
+              <div id="work-crusoe" className="mb-16 scroll-mt-8 md:scroll-mt-20 md:flex md:flex-row-reverse md:justify-between md:gap-12">
+                <div className="mb-3 md:mb-0 md:w-40 md:flex-shrink-0 md:text-right md:pt-1">
+                  <p className="text-sm text-black">2026</p>
+                  <p className="text-sm text-gray-400 mt-0.5">San Francisco</p>
+                  <p className="text-sm text-gray-400 mt-0.5">Software Engineering Intern</p>
+                </div>
+                <div className="md:flex-1 md:max-w-2xl">
+                <h3 className="text-lg font-medium text-black mb-3">Crusoe</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {crusoeTags.map((t) => (
+                    <span key={t} className={tagClass}>{t}</span>
+                  ))}
+                </div>
                 <p className="text-base leading-relaxed text-gray-700 mb-6">
                   This summer I'm at{' '}
                   <a
@@ -232,10 +281,8 @@ function App() {
                   </a>{' '}
                   handle node pool scale-up failures gracefully. GPU capacity is scarce everywhere
                   in the industry, and when a node pool couldn't scale up, the autoscaler used to
-                  just sit and wait. I designed and shipped remediation logic that surfaces those
-                  failures to the autoscaler's backoff engine (the same pattern AWS uses), so it
-                  automatically falls back to another node pool, retries with exponential backoff,
-                  and recovers on its own instead of getting stuck.
+                  just sit and wait. I designed and shipped logic that lets it fall back to another
+                  node pool and recover on its own instead of getting stuck.
                 </p>
 
                 <p className="text-base leading-relaxed text-gray-700">
@@ -245,11 +292,22 @@ function App() {
                   schema updates, and contributed to the rollout of a new customer-facing API for
                   better stability and observability.
                 </p>
+                </div>
               </div>
 
-              <div id="work-zebra" className="mb-16 scroll-mt-8 md:scroll-mt-20">
-                <h3 className="text-lg font-medium text-black mb-1">Zebra Technologies</h3>
-                <p className="text-sm text-gray-400 mb-4">Software Engineering Intern · Montreal · Winter 2026</p>
+              <div id="work-zebra" className="mb-16 scroll-mt-8 md:scroll-mt-20 md:flex md:flex-row-reverse md:justify-between md:gap-12">
+                <div className="mb-3 md:mb-0 md:w-40 md:flex-shrink-0 md:text-right md:pt-1">
+                  <p className="text-sm text-black">2026</p>
+                  <p className="text-sm text-gray-400 mt-0.5">Montreal</p>
+                  <p className="text-sm text-gray-400 mt-0.5">Software Engineering Intern</p>
+                </div>
+                <div className="md:flex-1 md:max-w-2xl">
+                <h3 className="text-lg font-medium text-black mb-3">Zebra Technologies</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {zebraTags.map((t) => (
+                    <span key={t} className={tagClass}>{t}</span>
+                  ))}
+                </div>
                 <p className="text-base leading-relaxed text-gray-700 mb-6">
                   In the winter I interned at{' '}
                   <a
@@ -279,11 +337,22 @@ function App() {
                   stream across resolutions and pixel formats. That fed into a baseline the team
                   could compare future builds against.
                 </p>
+                </div>
               </div>
 
-              <div id="work-valsoft" className="mb-16 scroll-mt-8 md:scroll-mt-20">
-                <h3 className="text-lg font-medium text-black mb-1">Valsoft Corporation</h3>
-                <p className="text-sm text-gray-400 mb-4">AI Engineer Intern · Montreal & Toronto · Summer + Fall 2025</p>
+              <div id="work-valsoft" className="mb-16 scroll-mt-8 md:scroll-mt-20 md:flex md:flex-row-reverse md:justify-between md:gap-12">
+                <div className="mb-3 md:mb-0 md:w-40 md:flex-shrink-0 md:text-right md:pt-1">
+                  <p className="text-sm text-black">2025</p>
+                  <p className="text-sm text-gray-400 mt-0.5">Montreal &amp; Toronto</p>
+                  <p className="text-sm text-gray-400 mt-0.5">AI Engineer Intern</p>
+                </div>
+                <div className="md:flex-1 md:max-w-2xl">
+                <h3 className="text-lg font-medium text-black mb-3">Valsoft Corporation</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {valsoftTags.map((t) => (
+                    <span key={t} className={tagClass}>{t}</span>
+                  ))}
+                </div>
                 <p className="text-base leading-relaxed text-gray-700 mb-6">
                   In summer 2025 I interned at{' '}
                   <a
@@ -350,18 +419,24 @@ function App() {
                   REST API and Supabase webhooks, so the team can track usage, monitor adoption,
                   and predict churn.
                 </p>
+                </div>
               </div>
             </section>
 
             {/* Projects Section */}
             <section id="projects" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-8">
+              <p className="text-base leading-relaxed text-gray-700 mb-8 md:max-w-2xl">
                 Creative experiments and interactive experiences.
               </p>
 
-              <div className="space-y-8">
+              <div className="space-y-10 md:max-w-2xl">
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Instagram Business Automation</h3>
+                  <h3 className="text-lg font-medium text-black mb-3">Instagram Business Automation</h3>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {instagramTags.map((t) => (
+                      <span key={t} className={tagClass}>{t}</span>
+                    ))}
+                  </div>
                   <p className="text-base text-gray-600 mb-3">
                     Automated order processing system for Instagram business accounts,
                     streamlining customer interactions and order management. You could call it a an AI Agent for business owners..
@@ -377,29 +452,18 @@ function App() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Roomiez</h3>
+                  <h3 className="text-lg font-medium text-black mb-3">Roomiez</h3>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {roomiezTags.map((t) => (
+                      <span key={t} className={tagClass}>{t}</span>
+                    ))}
+                  </div>
                   <p className="text-base text-gray-600 mb-3">
-                    A platform connecting people looking for roommates and shared living spaces,
-                    built with modern web technologies.
+                    A cross-platform mobile app that helps university students find compatible
+                    roommates, with real-time matching and profiles.
                   </p>
                   <a
                     href="https://github.com/tektaxi/roomiez"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-gray-400 hover:text-gray-600 underline"
-                  >
-                    View on GitHub
-                  </a>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Sign Recognition</h3>
-                  <p className="text-base text-gray-600 mb-3">
-                    Machine learning project for recognizing and interpreting various signs
-                    using computer vision techniques.
-                  </p>
-                  <a
-                    href="https://github.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-gray-400 hover:text-gray-600 underline"
@@ -412,9 +476,14 @@ function App() {
                   onClick={() => setShowIpod(true)}
                   className="cursor-pointer group"
                 >
-                  <h3 className="text-lg font-medium text-black mb-2 group-hover:text-gray-600 transition-colors">
+                  <h3 className="text-lg font-medium text-black mb-3 group-hover:text-gray-600 transition-colors">
                     Interactive iPod
                   </h3>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {ipodTags.map((t) => (
+                      <span key={t} className={tagClass}>{t}</span>
+                    ))}
+                  </div>
                   <p className="text-base text-gray-600 mb-3">
                     A fully functional iPod interface built with React, featuring music playback,
                     navigation, and authentic iPod interactions. Click to experience the nostalgia.
@@ -423,27 +492,16 @@ function App() {
                     Try it out
                   </span>
                 </div>
-
-                <div>
-                  <h3 className="text-lg font-medium text-black mb-2">Portfolio Website</h3>
-                  <p className="text-base text-gray-600 mb-3">
-                    This very website you're looking at - a clean, minimalistic portfolio
-                    built with React and Tailwind CSS, inspired by great design.
-                  </p>
-                  <span className="text-sm text-gray-400">
-                    You're here now
-                  </span>
-                </div>
               </div>
             </section>
 
             {/* Resume Section */}
             <section id="resume" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-8">
+              <p className="text-base leading-relaxed text-gray-700 mb-8 md:max-w-2xl">
                 Download or view my resume.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-6 md:max-w-2xl">
                 <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
                   <h3 className="text-lg font-medium text-black mb-4">Resume</h3>
                   <p className="text-base text-gray-600 mb-4">
@@ -483,41 +541,19 @@ function App() {
               </div>
             </section>
 
-            {/* Contact Section */}
-            <section id="contact" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-8">
-                Let's connect and create something amazing together.
-              </p>
-
-              <div className="space-y-4">
-                <p className="text-base text-gray-700">
-                  Feel free to reach out via email or connect with me on social platforms.
-                  I'm always interested in discussing new projects, opportunities, or just
-                  having a conversation about technology and design.
-                </p>
-
-                <div className="pt-4">
-                  <p className="text-sm text-gray-500 mb-2">Get in touch:</p>
-                  <div className="space-y-1">
-                    {socialLinks.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-base text-gray-700 hover:text-gray-900 underline"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
           </div>
         </div>
       </div>
+
+      {/* Visit counter */}
+      <button
+        onClick={addVisit}
+        title="tap to leave your mark"
+        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 bg-white border border-solid border-gray-200 rounded-full pl-2 pr-4 py-1.5 shadow-sm hover:shadow-md transition-shadow"
+      >
+        <span className="flex items-center justify-center w-8 h-8 text-lg">{catEmojis[emojiIndex]}</span>
+        <span className="text-sm text-gray-600 tabular-nums">{visits === null ? '···' : visits.toLocaleString()}</span>
+      </button>
     </div>
   );
 }
