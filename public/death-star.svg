@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ASCII Death Star">
+  <g fill="#1c2836" font-family="monospace" font-size="7.1" font-weight="700" text-anchor="middle">
+    <text x="32" y="11">:###:</text>
+    <text x="32" y="16">.###%##+.</text>
+    <text x="32" y="21">+#<tspan fill="#8a9aab">ooo</tspan>###%#:</text>
+    <text x="32" y="26">##<tspan fill="#a2aebd">o...o</tspan>#####+</text>
+    <text x="32" y="31">##<tspan fill="#8a9aab">o:::o</tspan>######</text>
+    <text x="32" y="36" fill="#7e98ad">=============</text>
+    <text x="32" y="41">##%#+#%######</text>
+    <text x="32" y="46">+#%#######+</text>
+    <text x="32" y="51">:####%##:</text>
+    <text x="32" y="56">:###:</text>
+  </g>
+</svg>

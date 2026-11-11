@@ -238,4 +238,179 @@ button {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
-} 
+}
+
+.portfolio-space {
+  position: relative;
+  isolation: isolate;
+  background: #0b0e13;
+  color: #c7cdd4;
+}
+
+.portfolio-space::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 76% 24%, #28374755, transparent 58%),
+    radial-gradient(ellipse at 20% 90%, #18233870, transparent 66%),
+    radial-gradient(1px 1px at 23px 38px, #a3b4ce 75%, transparent),
+    radial-gradient(1px 1px at 116px 140px, #8194b2 75%, transparent),
+    radial-gradient(1px 1px at 182px 67px, #6d829f 75%, transparent),
+    radial-gradient(1px 1px at 49px 177px, #607694 75%, transparent),
+    radial-gradient(1px 1px at 217px 244px, #a1b1c9 75%, transparent),
+    radial-gradient(1px 1px at 304px 118px, #7188a5 75%, transparent),
+    radial-gradient(1px 1px at 380px 286px, #c1cde1 75%, transparent),
+    radial-gradient(2px 2px at 155px 291px, #bdcce5 16%, #5f729644 46%, transparent);
+  background-size: auto, auto, 251px 211px, 251px 211px, 251px 211px,
+    251px 211px, 431px 337px, 431px 337px, 431px 337px, 431px 337px;
+}
+
+.portfolio-space :focus-visible {
+  outline: 2px solid #b8d4f3;
+  outline-offset: 4px;
+}
+
+.portfolio-meteors {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.portfolio-meteor {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  height: 1px;
+  opacity: 0;
+  transform-origin: right center;
+  background: linear-gradient(90deg, transparent, #8cb6e66b 72%, #eaf5ff);
+}
+
+.portfolio-meteor::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #eff8ff;
+  box-shadow: 0 0 6px 1px #a3cdff;
+}
+
+.death-star-trigger:hover,
+.death-star-trigger:active {
+  opacity: 1;
+}
+
+.death-star-lasers {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.death-star-laser-fan {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.death-star-laser-fan::before,
+.death-star-laser-fan::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  animation: death-star-crater-glow 1650ms ease-out both;
+}
+
+.death-star-laser-fan::before {
+  width: clamp(120px, 23vw, 300px);
+  background: radial-gradient(circle,
+    #35edc04d 0%, #25caaa30 19%, #1aa58a19 42%, transparent 70%);
+}
+
+.death-star-laser-fan::after {
+  width: 64px;
+  background: radial-gradient(circle,
+    #e4fff7 0%, #abffe8 6%, #5cf4cfaa 15%, #28daba58 30%, #13c0a322 49%, transparent 70%);
+}
+
+@keyframes death-star-crater-glow {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.55); }
+  16% { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
+  43% { opacity: 0.68; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+.death-star-laser-ray {
+  position: absolute;
+  top: -1px;
+  width: 150vmax;
+  height: 2px;
+  color: #98d6f7;
+  transform-origin: left center;
+  transform: rotate(calc(var(--laser-bearing) - 0.1rad));
+  animation: death-star-sweep 1400ms ease-out both;
+  animation-delay: var(--laser-delay);
+}
+
+.death-star-laser-ray:nth-child(even) {
+  height: 1px;
+  color: #bed0f5;
+}
+
+.death-star-laser-ray::before {
+  content: '';
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #edfaff, currentColor 25%, transparent 95%);
+  box-shadow: 0 0 7px currentColor;
+  transform-origin: left center;
+  animation: death-star-streak 1400ms ease-out both;
+  animation-delay: inherit;
+}
+
+@keyframes death-star-sweep {
+  0% { opacity: 0; }
+  18% { opacity: 0.56; }
+  60% { opacity: 0.34; }
+  100% { opacity: 0; transform: rotate(calc(var(--laser-bearing) + 0.13rad)); }
+}
+
+@keyframes death-star-streak {
+  0% { transform: scaleX(0); }
+  43%, 100% { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .death-star-laser-fan::before,
+  .death-star-laser-fan::after {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .death-star-laser-ray,
+  .death-star-laser-ray::before {
+    animation: none;
+  }
+
+  .death-star-laser-ray {
+    width: 72px;
+    opacity: 0.4;
+  }
+
+  .death-star-laser-ray::before {
+    box-shadow: none;
+  }
+}

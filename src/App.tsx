@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { IpodAppComponent } from './components/IpodAppComponent';
+import { AsciiDeathStar } from './components/AsciiDeathStar';
+import { MeteorField } from './components/MeteorField';
+import { CurrentLocation } from './components/CurrentLocation';
 import './App.css';
 
 const navigationItems = [
@@ -15,11 +18,9 @@ const internships = [
   { id: 'work-valsoft', label: 'valsoft corporation' }
 ];
 
-const tagClass = 'text-xs text-gray-500 border border-gray-200 rounded-full px-2.5 py-0.5';
+const tagClass = 'text-xs text-[#aab4bf] border border-[#353d48] rounded-full px-2.5 py-0.5';
 
-const catEmojis = ['😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🐱', '🐈', '🐈‍⬛'];
-
-const crusoeTags = ['Go', 'Kubernetes', 'Terraform', 'gRPC', 'Helm', 'Prometheus', 'Grafana', 'GCP'];
+const crusoeTags = ['Go', 'Kubernetes', 'Terraform', 'gRPC', 'Temporal', 'Helm', 'Prometheus', 'Grafana', 'GCP'];
 const zebraTags = ['C#', 'Selenium', '.NET', 'CI/CD'];
 const valsoftTags = ['Python', 'FastAPI', 'Java', 'RAG', 'Supabase', 'PostgreSQL', 'Redis'];
 
@@ -37,26 +38,9 @@ function App() {
   const [showIpod, setShowIpod] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [visits, setVisits] = useState<number | null>(null);
-  const [emojiIndex, setEmojiIndex] = useState(0);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    fetch('https://abacus.jasoncameron.dev/get/bradenweii-github-io/visits')
-      .then((r) => r.json())
-      .then((d) => setVisits(d.value ?? 0))
-      .catch(() => setVisits(0));
-  }, []);
-
-  const addVisit = () => {
-    setEmojiIndex((i) => (i + 1) % catEmojis.length);
-    fetch('https://abacus.jasoncameron.dev/hit/bradenweii-github-io/visits')
-      .then((r) => r.json())
-      .then((d) => setVisits(d.value))
-      .catch(() => {});
   };
 
   useEffect(() => {
@@ -78,14 +62,15 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="portfolio-space min-h-screen">
+      <MeteorField />
       {/* Mobile Header */}
-      <div className="md:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-6 py-4">
+      <div className="md:hidden sticky top-0 z-40 bg-[#12171f] border-b border-[#353d48] px-6 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-normal text-black">braden wei</h1>
+          <h1 className="text-2xl font-normal text-[#f2f4f5]">braden wei</h1>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+            className="p-2 text-[#aab4bf] hover:text-white transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMobileMenuOpen ? (
@@ -110,8 +95,8 @@ function App() {
                   }}
                   className={`text-left py-2 px-3 rounded-md text-sm transition-colors ${
                     activeSection === item.id
-                      ? 'bg-gray-100 text-black font-medium'
-                      : 'text-gray-400 hover:text-gray-600'
+                      ? 'bg-[#202833] text-[#f2f4f5] font-medium'
+                      : 'text-[#aab4bf] hover:text-white'
                   }`}
                 >
                   {item.label}
@@ -120,7 +105,7 @@ function App() {
             </nav>
 
             {/* Mobile Social Links */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="mt-4 pt-4 border-t border-[#353d48]">
               <div className="flex flex-wrap gap-4">
                 {socialLinks.map((link) => (
                   <a
@@ -128,7 +113,7 @@ function App() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                    className="text-sm text-[#aab4bf] hover:text-white transition-colors"
                   >
                     {link.label}
                   </a>
@@ -146,7 +131,7 @@ function App() {
           <div className="relative pointer-events-auto">
             <button
               onClick={() => setShowIpod(false)}
-              className="absolute -top-4 -right-4 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors z-10"
+              className="absolute -top-4 -right-4 bg-[#12171f] rounded-full w-8 h-8 flex items-center justify-center shadow-lg hover:bg-[#28313d] transition-colors z-10"
             >
               ×
             </button>
@@ -159,7 +144,7 @@ function App() {
         <div className="hidden md:flex w-64 p-8 flex-col md:sticky md:top-0 md:h-screen">
           {/* Name */}
           <div className="mb-12">
-            <h1 className="text-3xl font-normal text-black mb-2">braden wei</h1>
+            <h1 className="text-3xl font-normal text-[#f2f4f5] mb-2">braden wei</h1>
           </div>
 
           {/* Navigation */}
@@ -170,8 +155,8 @@ function App() {
                 onClick={() => scrollToSection(item.id)}
                 className={`block w-full text-left py-1 mb-2 text-sm transition-colors ${
                   activeSection === item.id
-                    ? 'text-black font-medium'
-                    : 'text-gray-400 hover:text-gray-600'
+                    ? 'text-[#f2f4f5] font-medium'
+                    : 'text-[#aab4bf] hover:text-white'
                 }`}
               >
                 {item.label}
@@ -187,7 +172,7 @@ function App() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block py-1 mb-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                className="block py-1 mb-2 text-sm text-[#aab4bf] hover:text-white transition-colors"
               >
                 {link.label}
               </a>
@@ -200,14 +185,16 @@ function App() {
           <div className="max-w-lg mx-auto md:max-w-5xl md:mx-0">
 
             {/* About Section */}
-            <section id="about" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0">
+            <section id="about" className="min-h-screen pt-8 pb-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] md:items-start md:gap-6 xl:gap-10">
 
               <div className="mb-8 md:max-w-2xl">
-                <p className="text-base leading-relaxed text-gray-700 mb-6">
+                <p className="text-base leading-relaxed text-[#c7cdd4] mb-6">
                   Hi I'm Braden, a CS student at McGill with a passion for solving problems and building startups.
                 </p>
 
-                <p className="text-sm text-gray-500 mb-4">internships</p>
+                <CurrentLocation />
+
+                <p className="text-sm text-[#aab4bf] mb-4">internships</p>
                 <div className="space-y-4">
                   {internships.map((item, index) => (
                     <button
@@ -215,8 +202,8 @@ function App() {
                       onClick={() => scrollToSection(item.id)}
                       className="group block w-full text-left"
                     >
-                      <span className="text-sm text-gray-400 mr-4">0{index + 1}</span>
-                      <span className="text-lg text-black group-hover:text-gray-500 transition-colors">
+                      <span className="text-sm text-[#aab4bf] mr-4">0{index + 1}</span>
+                      <span className="text-lg text-[#f2f4f5] group-hover:text-white transition-colors">
                         {item.label}
                       </span>
                     </button>
@@ -224,39 +211,40 @@ function App() {
                 </div>
 
                 <div className="mt-12">
-                  <p className="text-base leading-relaxed text-gray-700 mb-4">
+                  <p className="text-base leading-relaxed text-[#c7cdd4] mb-4">
                     Let's connect and create something amazing together.
                   </p>
-                  <p className="text-base leading-relaxed text-gray-700">
+                  <p className="text-base leading-relaxed text-[#c7cdd4]">
                     Feel free to reach out via email or connect with me on social platforms.
                     I'm always interested in discussing new projects, opportunities, or just
                     having a conversation about technology and design.
                   </p>
                 </div>
               </div>
+              <AsciiDeathStar />
             </section>
 
             {/* Work Section */}
-            <section id="work" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-12 md:max-w-2xl">
+            <section id="work" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-[#353d48]">
+              <p className="text-base leading-relaxed text-[#c7cdd4] mb-12 md:max-w-2xl">
                 A deeper dive into my internships.
               </p>
 
               <div id="work-crusoe" className="mb-16 scroll-mt-8 md:scroll-mt-20 md:flex md:flex-row-reverse md:justify-between md:gap-12">
                 <div className="mb-3 md:mb-0 md:w-40 md:flex-shrink-0 md:text-right md:pt-1">
-                  <p className="text-sm text-black">2026</p>
-                  <p className="text-sm text-gray-400 mt-0.5">San Francisco</p>
-                  <p className="text-sm text-gray-400 mt-0.5">Software Engineering Intern</p>
+                  <p className="text-sm text-[#f2f4f5]">Jun–Sep 2026</p>
+                  <p className="text-sm text-[#aab4bf] mt-0.5">San Francisco</p>
+                  <p className="text-sm text-[#aab4bf] mt-0.5">Software Engineering Intern</p>
                 </div>
                 <div className="md:flex-1 md:max-w-2xl">
-                <h3 className="text-lg font-medium text-black mb-3">Crusoe</h3>
+                <h3 className="text-lg font-medium text-[#f2f4f5] mb-3">Crusoe</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {crusoeTags.map((t) => (
                     <span key={t} className={tagClass}>{t}</span>
                   ))}
                 </div>
-                <p className="text-base leading-relaxed text-gray-700 mb-6">
-                  This summer I'm at{' '}
+                <p className="text-base leading-relaxed text-[#c7cdd4] mb-6">
+                  I interned on the managed Kubernetes data plane team at{' '}
                   <a
                     href="https://www.crusoe.ai/"
                     target="_blank"
@@ -265,50 +253,72 @@ function App() {
                   >
                     Crusoe
                   </a>{' '}
-                  in San Francisco, working on Crusoe Managed Kubernetes, the platform customers
-                  use to run Kubernetes clusters on Crusoe's AI cloud.
+                  in San Francisco. I led the launch of node-pool autoscaling bounds across seven
+                  repositories, from protobuf schemas and Go services through the client, CLI,
+                  Terraform provider, and Cluster Autoscaler.
                 </p>
 
-                <p className="text-base leading-relaxed text-gray-700 mb-6">
-                  My main focus has been auto-scaling. My biggest project was making{' '}
-                  <a
-                    href="https://github.com/crusoecloud/k8s-autoscaler"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:no-underline"
-                  >
-                    Crusoe's fork of the Kubernetes cluster-autoscaler
-                  </a>{' '}
-                  handle node pool scale-up failures gracefully. GPU capacity is scarce everywhere
-                  in the industry, and when a node pool couldn't scale up, the autoscaler used to
-                  just sit and wait. I designed and shipped logic that lets it fall back to another
-                  node pool and recover on its own instead of getting stuck.
+                <p className="text-base leading-relaxed text-[#c7cdd4] mb-6">
+                  I also built state-based scale-up fallback, cutting measured failover from
+                  15 minutes to 41 seconds. For a new provisioning flow, I built VM and node-pool
+                  quota enforcement in Go and Temporal, acquiring capacity permits before allocation
+                  and surfacing quota failures in customer-facing health status.
                 </p>
 
-                <p className="text-base leading-relaxed text-gray-700">
-                  Beyond the autoscaler, I've worked on auto-scaling configurations that made
-                  customer node pool scale-ups more reliable, shipped platform changes across the
-                  Crusoe CLI, Cloud APIs, and Terraform integrations, validated backend database
-                  schema updates, and contributed to the rollout of a new customer-facing API for
-                  better stability and observability.
+                <p className="text-base leading-relaxed text-[#c7cdd4]">
+                  For the node-pool v2 rollout, I wrote the autoscaler compatibility design,
+                  identified node deletion and rollout failure modes, and drove adoption of an API
+                  for removing specific nodes.
                 </p>
+
+                <details className="mt-6 border-y border-[#353d48] py-4">
+                  <summary className="cursor-pointer text-sm font-medium text-[#f2f4f5]">
+                    Technical write-up: node-pool autoscaling and fallback
+                  </summary>
+                  <div className="mt-4 space-y-4 text-sm leading-relaxed text-[#c7cdd4]">
+                    <p>
+                      <strong>Scaling bounds.</strong> Minimum and maximum node counts used to live
+                      in the autoscaler deployment flags. I moved them into the node-pool API so
+                      customers could set limits through their existing provisioning tools and opt
+                      into scale-to-zero. On CMK v2 with a supported autoscaler, the autoscaler reads
+                      the bounds from <code>autoscaling_config</code>. Older builds still read{' '}
+                      <code>--nodes</code>. Terraform can manage the bounds while ignoring changes
+                      to <code>instance_count</code>, which the autoscaler adjusts at runtime.
+                    </p>
+                    <p>
+                      <strong>Failed scale-ups.</strong> VM provisioning is asynchronous, so a
+                      successful request can still end in a capacity failure. Waiting for the
+                      operation would block the autoscaler loop. I used node-pool health to report
+                      failed launches through the autoscaler's existing backoff mechanism. That lets
+                      it defer the failed pool and try another eligible one while pods are pending.
+                    </p>
+                    <a
+                      href="https://docs.crusoe.ai/orchestration/cmk/cmk-addons/index.html#node-pool-autoscaling-bounds"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block underline hover:no-underline"
+                    >
+                      Crusoe docs: Node pool autoscaling bounds
+                    </a>
+                  </div>
+                </details>
                 </div>
               </div>
 
               <div id="work-zebra" className="mb-16 scroll-mt-8 md:scroll-mt-20 md:flex md:flex-row-reverse md:justify-between md:gap-12">
                 <div className="mb-3 md:mb-0 md:w-40 md:flex-shrink-0 md:text-right md:pt-1">
-                  <p className="text-sm text-black">2026</p>
-                  <p className="text-sm text-gray-400 mt-0.5">Montreal</p>
-                  <p className="text-sm text-gray-400 mt-0.5">Software Engineering Intern</p>
+                  <p className="text-sm text-[#f2f4f5]">2026</p>
+                  <p className="text-sm text-[#aab4bf] mt-0.5">Montreal</p>
+                  <p className="text-sm text-[#aab4bf] mt-0.5">Software Engineering Intern</p>
                 </div>
                 <div className="md:flex-1 md:max-w-2xl">
-                <h3 className="text-lg font-medium text-black mb-3">Zebra Technologies</h3>
+                <h3 className="text-lg font-medium text-[#f2f4f5] mb-3">Zebra Technologies</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {zebraTags.map((t) => (
                     <span key={t} className={tagClass}>{t}</span>
                   ))}
                 </div>
-                <p className="text-base leading-relaxed text-gray-700 mb-6">
+                <p className="text-base leading-relaxed text-[#c7cdd4] mb-6">
                   In the winter I interned at{' '}
                   <a
                     href="https://www.zebra.com/"
@@ -325,7 +335,7 @@ function App() {
                   user interactions to catch regressions before they reached a production release.
                 </p>
 
-                <p className="text-base leading-relaxed text-gray-700">
+                <p className="text-base leading-relaxed text-[#c7cdd4]">
                   I also worked on performance and resource profiling. I instrumented the
                   automated runs to sample memory over long acquisition sessions, which surfaced
                   growth in the live display path that only appeared after a few thousand frames
@@ -342,18 +352,18 @@ function App() {
 
               <div id="work-valsoft" className="mb-16 scroll-mt-8 md:scroll-mt-20 md:flex md:flex-row-reverse md:justify-between md:gap-12">
                 <div className="mb-3 md:mb-0 md:w-40 md:flex-shrink-0 md:text-right md:pt-1">
-                  <p className="text-sm text-black">2025</p>
-                  <p className="text-sm text-gray-400 mt-0.5">Montreal &amp; Toronto</p>
-                  <p className="text-sm text-gray-400 mt-0.5">AI Engineer Intern</p>
+                  <p className="text-sm text-[#f2f4f5]">2025</p>
+                  <p className="text-sm text-[#aab4bf] mt-0.5">Montreal &amp; Toronto</p>
+                  <p className="text-sm text-[#aab4bf] mt-0.5">AI Engineer Intern</p>
                 </div>
                 <div className="md:flex-1 md:max-w-2xl">
-                <h3 className="text-lg font-medium text-black mb-3">Valsoft Corporation</h3>
+                <h3 className="text-lg font-medium text-[#f2f4f5] mb-3">Valsoft Corporation</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {valsoftTags.map((t) => (
                     <span key={t} className={tagClass}>{t}</span>
                   ))}
                 </div>
-                <p className="text-base leading-relaxed text-gray-700 mb-6">
+                <p className="text-base leading-relaxed text-[#c7cdd4] mb-6">
                   In summer 2025 I interned at{' '}
                   <a
                     href="https://www.valsoftcorp.com/"
@@ -376,68 +386,51 @@ function App() {
                   , an Electronic Health Record provider.
                 </p>
 
-                <p className="text-base leading-relaxed text-gray-700 mb-6">
-                  During my internship, I designed from scratch a chatbot called MDS Assistant, that enables
-                  clinicians and staff to run natural language queries over complex healthcare datasets, including medical manuanls, facility rules, and patient data.
-                  The system helps them answer any questions regarding a
-                  assesment called the {' '}
-                  <a
-                    href="https://www.cms.gov/medicare/quality/nursing-home-improvement/minimum-data-sets-swing-bed-providers"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:no-underline"
-                  >
-                    Minimum Data Set (MDS) {' '}
-                  </a>
-
-                  often used in long term care facilities.
-                  As a result, resolution times dropped from several days of manual workflows to seconds, significantly improving clinical efficiency.{' '}
-
-                </p>
-
-                <p className="text-base leading-relaxed text-gray-700">
-                  I built the MVP alone and presented it to the customers:{' '}
-                  <a
-                    href="https://lopsided-avenue-523.notion.site/MDS-Assistant-User-Guide-2371aa42c9c180298bc1d0922481d1e6#%232371aa42c9c1801dab54fceec86ba347"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:no-underline"
-                  >
-                    MDS Assistant{' '}
-                  </a>
-                  <br />
-                  After that, I integrated the MDS Assistant into the American Data platform,
-                  a legacy EHR system. Where the customers can now directly access the chatbot without having to navigate through a separate application.{' '}
-                </p>
-
-                <p className="text-base leading-relaxed text-gray-700">
-                  <br />
-                  I stayed on part time through the fall semester, where I upgraded the production
-                  RAG backend with file-search tool calling and token optimization, cutting the
-                  hallucination rate by 35% and improving response accuracy by 20%. I also built a
-                  real-time management dashboard that pulls from 40+ EHR modules through a Java
-                  REST API and Supabase webhooks, so the team can track usage, monitor adoption,
-                  and predict churn.
-                </p>
+                <ul className="space-y-4 text-base leading-relaxed text-[#c7cdd4]">
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <span>Identified and built the highest-impact AI workflow for an acquired healthcare SaaS product, creating an MDS assistant that reduced manual support and form-completion errors by 60%.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <span>Designed a hybrid RAG system over a 900+ page regulatory manual to guide healthcare staff through complex MDS assessments with cited, context-specific answers.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <span>Built the production backend integrating Java EHR services with FastAPI inference, achieving sub-3-second response latency through caching and token optimization.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <span>Instrumented production usage and quality with Langfuse evals, tracing retrieval quality and hallucination rates across 10+ healthcare facilities.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <span>Returned part-time to productionize the MDS assistant, adding file-search tool calling and evaluation-driven retrieval improvements that reduced hallucinations by 35% and improved response accuracy by 20%.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <span>Built a real-time management dashboard across 40+ EHR modules using Java REST APIs and Supabase webhooks, enabling adoption and usage monitoring across customer deployments.</span>
+                  </li>
+                </ul>
                 </div>
               </div>
             </section>
 
             {/* Projects Section */}
-            <section id="projects" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-8 md:max-w-2xl">
+            <section id="projects" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-[#353d48]">
+              <p className="text-base leading-relaxed text-[#c7cdd4] mb-8 md:max-w-2xl">
                 Creative experiments and interactive experiences.
               </p>
 
               <div className="space-y-10 md:max-w-2xl">
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-3">Instagram Business Automation</h3>
+                  <h3 className="text-lg font-medium text-[#f2f4f5] mb-3">Instagram Business Automation</h3>
                   <div className="flex flex-wrap gap-2 mb-3">
                     {instagramTags.map((t) => (
                       <span key={t} className={tagClass}>{t}</span>
                     ))}
                   </div>
-                  <p className="text-base text-gray-600 mb-3">
+                  <p className="text-base text-[#c7cdd4] mb-3">
                     Automated order processing system for Instagram business accounts,
                     streamlining customer interactions and order management. You could call it a an AI Agent for business owners..
                   </p>
@@ -445,20 +438,20 @@ function App() {
                     href="https://github.com/bradenweii/Instagram-business-order-automation"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-gray-400 hover:text-gray-600 underline"
+                    className="text-sm text-[#aab4bf] hover:text-white underline"
                   >
                     View on GitHub
                   </a>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-black mb-3">Roomiez</h3>
+                  <h3 className="text-lg font-medium text-[#f2f4f5] mb-3">Roomiez</h3>
                   <div className="flex flex-wrap gap-2 mb-3">
                     {roomiezTags.map((t) => (
                       <span key={t} className={tagClass}>{t}</span>
                     ))}
                   </div>
-                  <p className="text-base text-gray-600 mb-3">
+                  <p className="text-base text-[#c7cdd4] mb-3">
                     A cross-platform mobile app that helps university students find compatible
                     roommates, with real-time matching and profiles.
                   </p>
@@ -466,7 +459,7 @@ function App() {
                     href="https://github.com/tektaxi/roomiez"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-gray-400 hover:text-gray-600 underline"
+                    className="text-sm text-[#aab4bf] hover:text-white underline"
                   >
                     View on GitHub
                   </a>
@@ -476,7 +469,7 @@ function App() {
                   onClick={() => setShowIpod(true)}
                   className="cursor-pointer group"
                 >
-                  <h3 className="text-lg font-medium text-black mb-3 group-hover:text-gray-600 transition-colors">
+                  <h3 className="text-lg font-medium text-[#f2f4f5] mb-3 group-hover:text-white transition-colors">
                     Interactive iPod
                   </h3>
                   <div className="flex flex-wrap gap-2 mb-3">
@@ -484,11 +477,11 @@ function App() {
                       <span key={t} className={tagClass}>{t}</span>
                     ))}
                   </div>
-                  <p className="text-base text-gray-600 mb-3">
+                  <p className="text-base text-[#c7cdd4] mb-3">
                     A fully functional iPod interface built with React, featuring music playback,
                     navigation, and authentic iPod interactions. Click to experience the nostalgia.
                   </p>
-                  <span className="text-sm text-gray-400 hover:text-gray-600 underline">
+                  <span className="text-sm text-[#aab4bf] hover:text-white underline">
                     Try it out
                   </span>
                 </div>
@@ -496,15 +489,15 @@ function App() {
             </section>
 
             {/* Resume Section */}
-            <section id="resume" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 mb-8 md:max-w-2xl">
+            <section id="resume" className="min-h-screen pt-8 md:pt-20 snap-start scroll-mt-16 md:scroll-mt-0 border-t border-[#353d48]">
+              <p className="text-base leading-relaxed text-[#c7cdd4] mb-8 md:max-w-2xl">
                 Download or view my resume.
               </p>
 
               <div className="space-y-6 md:max-w-2xl">
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-                  <h3 className="text-lg font-medium text-black mb-4">Resume</h3>
-                  <p className="text-base text-gray-600 mb-4">
+                <div className="bg-[#12171f] rounded-lg p-6 shadow-sm border border-[#353d48]">
+                  <h3 className="text-lg font-medium text-[#f2f4f5] mb-4">Resume</h3>
+                  <p className="text-base text-[#c7cdd4] mb-4">
                     View my complete resume with education, experience, and skills.
                   </p>
 
@@ -513,14 +506,14 @@ function App() {
                       href="/resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+                      className="inline-flex items-center px-4 py-2 bg-[#27374a] text-white rounded-md hover:bg-[#344a64] transition-colors text-sm font-medium"
                     >
                       View PDF
                     </a>
                     <a
                       href="/resume.pdf"
                       download="Braden_Wei_Resume.pdf"
-                      className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm font-medium"
+                      className="inline-flex items-center px-4 py-2 border border-[#4a5564] text-[#c7cdd4] rounded-md hover:bg-[#202833] transition-colors text-sm font-medium"
                     >
                       Download PDF
                     </a>
@@ -528,9 +521,9 @@ function App() {
                 </div>
 
                 {/* Embedded PDF Viewer */}
-                <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-                  <h3 className="text-lg font-medium text-black mb-4">Preview</h3>
-                  <div className="w-full h-64 md:h-96 border border-gray-200 rounded-md overflow-hidden">
+                <div className="bg-[#12171f] rounded-lg p-6 shadow-sm border border-[#353d48]">
+                  <h3 className="text-lg font-medium text-[#f2f4f5] mb-4">Preview</h3>
+                  <div className="w-full h-64 md:h-96 border border-[#353d48] rounded-md overflow-hidden">
                     <iframe
                       src="/resume.pdf"
                       className="w-full h-full"
@@ -545,15 +538,6 @@ function App() {
         </div>
       </div>
 
-      {/* Visit counter */}
-      <button
-        onClick={addVisit}
-        title="tap to leave your mark"
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 bg-white border border-solid border-gray-200 rounded-full pl-2 pr-4 py-1.5 shadow-sm hover:shadow-md transition-shadow"
-      >
-        <span className="flex items-center justify-center w-8 h-8 text-lg">{catEmojis[emojiIndex]}</span>
-        <span className="text-sm text-gray-600 tabular-nums">{visits === null ? '···' : visits.toLocaleString()}</span>
-      </button>
     </div>
   );
 }
